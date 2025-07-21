@@ -1,0 +1,94 @@
+<?php
+
+class Zamestnanec extends Controller{
+    private $controller, $fce;
+    public function __construct(){
+        if(!jePrihlasen()){
+            redirect('uzivatel/prihlaseni');}
+        $this->UzivatelM = $this->model('UzivatelM');
+        $this->ZamestnanecM = $this->model('ZamestnanecM');
+        //$this->fce = $this->UzivatelM->controlleFce();
+        }
+    
+    public function index(){
+        //$nastaveniJazyk = $this->UzivatelM->nastaveniJazyk();
+        $zamestnanciSeznam =  $this->ZamestnanecM->zamestnanciSeznam();
+        //$this->ZamestnanecM->ulozDoSouboru($zamestnanciSeznam);
+        //$test = $this->ZamestnanecM->testJSON($zamestnanciSeznam);
+        echo '<pre>';
+        //var_dump($test);
+        echo '</pre>';
+        //$this->test();
+        
+        //var_dump($zamestnanciSeznam);
+        //$DataTest =  $this->ZamestnanecM->testJSON($zamestnanciSeznam);
+        //var_dump($zamestnanciSeznam);
+        $data = [
+             //"cz" => ["tabulka"=>["cz.nastaveni.jazyk"=>[
+             //"sloupce"=>$nastaveniJazyk]]
+             //],
+             "kompas" =>[
+            //"zamestnanciSeznam" => $DataTest,
+            //"tabulkaNazev" => "Kompas seznam zaměstnanců",
+            //"sloupce" => array_slice($zamestnanciSeznam, 0,1, true)
+            ]
+            
+              ];
+   
+    
+    //$json = json_encode($nastaveniJazyk, JSON_UNESCAPED_UNICODE);
+    //echo 'TEST' . "<br>" . "<br>";
+    //echo ('JDSON'.$json);
+              //echo '<pre>'. var_dump(json_encode($zamestnanciSeznam, JSON_UNESCAPED_UNICODE)). '</pre>';
+              //echo 'controllers/Uzivatel/index';
+        $this->view('zamestnanec/index', $data);
+           
+    }
+
+    function zamestnaciSeznamAktualizace(){
+        
+    }
+
+    public function test(){
+        echo 'TEST';
+        return 1;
+    }
+    
+    public function encode_items($arr) {
+        //foreach ($arr as $n => $v) {
+        //    if (is_array($v))
+        //;        encode_items($arr[$n]);
+        //;    else
+        //;        echo $arr[$n] = iconv($v, 'Windows-1250', 'UTF-8');
+        //;}
+        return $arr;
+    }
+    
+    public function testData(){
+        $data = [
+            "a" => "aaa"
+        ];
+
+        //echo '<pre>'. var_dump($data). '</pre>';
+    }
+
+    public function zamestnanciKompasSelectJS(){
+        $res = $this->ZamestnanecM->nastaveniJazyk();
+        //var_dump((iconv('windows-1250', 'UTF-8',$res), JSON_UNESCAPED_UNICODE));
+
+        //var_dump( $res);
+        
+          /*$data = [     
+        'zam' => $this->ZamestnanecM->zamestnanciSeznam(),
+        'jaz' => $this->UzivatelM->nastaveniJazyk()
+           ];
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);*/
+        //echo ('ODPOVED SERVER');
+
+    }
+
+
+
+}
+
+?>

@@ -1,0 +1,16 @@
+.wrapper{
+    padding: 0.05rem 0,01rem;
+}
+.flexC {
+    display: flex;
+    /*margin: 0.05rem;*/
+    background: red;
+}
+
+.flexIsb{
+    justify-content: flex-end;
+}
+
+.flexGrow{
+    /*flex-grow: 2;*/
+}

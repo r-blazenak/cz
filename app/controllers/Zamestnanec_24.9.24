@@ -1,0 +1,111 @@
+<?php
+
+class Zamestnanec extends Controller{
+    private $controller, $fce, $updated, $ZamestnanecM; 
+    public function __construct(){
+        if(!jePrihlasen()){
+            redirect('uzivatel/prihlaseni');}
+        $this->UzivatelM = $this->model('UzivatelM');
+        $this->ZamestnanecM = $this->model('ZamestnanecM');
+                                                //print_r($this->ZamestnanecM);
+        }
+
+    public function index()
+    {
+        //$this->ZamestnanecM->();
+        $data = [];
+        echo password_hash('123456', PASSWORD_DEFAULT). '<br>'.'<br>';
+        $funkce = ['overeniNovyZam','KompasOsobaImport']; //  , 'ekonomickeZamestnanciCiselnikUPD', 'romatrixSettingSalImport_ML' , 'romatrixSettingSalImport','FssStaffImport','fss_mysql_zamestnanci', 'tzPersonalstammImport', 'fssStaffInsUpd' ---ne   ----'mysqlAuswertungZamestnanci_n'KompasOsobaImport()
+
+        foreach ($funkce as $hodnota) {
+                      
+            $pridat = $this->ZamestnanecM->$hodnota();
+            //var_dump($pridat);
+            $data[$hodnota] = $pridat;
+            //var_dump($data);
+            //$data[$hodnota . ' - ' . key($pridat)] = $pridat[key($pridat)];
+            //echo 'key '.$hodnota . ' - ' . key($pridat).' -value- '. $pridat[key($pridat)] .'<br>';
+            //var_dump($data);
+            //echo $hodnota.'<br>';
+            foreach ($data as $key => $value) {
+                if ($value === false) {
+                    $this->updated = false;
+                    //echo 'key '.$key.' -value- '. $hodnota .'<br>';
+                    //$this->view('zamestnanec/importMsMy', $data);
+
+                    return;
+                }else {
+                    $this->updated = true; 
+                                       
+                    //echo 'UPDATED1 - '.$this->updated.'<br>';
+                    $this->view('zamestnanec/index', $data);
+                }
+            }
+            
+            //echo $key.' |-| '.$hodnota.'<br>';
+        }
+
+         //echo 'UPDATED - '.$this->updated.'<br>';
+         if($this->updated===true){
+            //var_dump($data);
+            $data = [];
+            //sleep(5);
+            //echo 'UPDATED - '.$this->updated.'<br>';
+            //$this->view('zamestnanec/index', $data);
+         }/*else{
+            echo 'UPDATED 1 - '.$this->updated.'<br>';
+        //$this->view('zamestnanec/importMsMy', $data);
+    }*/
+    $this->ZamestnanecM->romatrixMLimport();
+    $this->view('zamestnanec/index', $data);                
+    }
+
+
+    public function aktualizace(){
+        $this->ZamestnanecM->KompasOsobaImport();
+        $data=[];
+        //$data['zamestnanci'] = $this->ZamestnanecM->zamestnanecFSS();
+        //var_dump($data);
+        $this->view('zamestnanec/aktualizace', $data);
+    }
+            
+    public function zauceni(){
+        //$this->ZamestnanecM->romatrixSettingSalImport();
+        $data=[];
+        $data['zamestnanci'] = $this->ZamestnanecM->zamestnanecFSS();
+        //var_dump($data);
+        $this->view('zamestnanec/zauceni', $data);
+    }
+    
+
+    public function zaucaKVystavit(){
+    
+        $data=[];
+        //$this->ZamestnanecM->zamestnanecFSS();
+        $this->view('zamestnanec/zaucakVystavit', $data);
+    }
+
+    public function zaucaKPotvrdit(){
+    
+        $data=[];
+        //$this->ZamestnanecM->zamestnanecFSS();
+        $this->view('zamestnanec/zaucakPotvrdit', $data);
+    }
+    
+
+    public function mysqlTest(){
+        
+        $this->ZamestnanecM->mysqlAuswertungZamestnanci_n();
+
+    }
+
+
+    public function ciselnikUPD(){
+        
+               
+        
+    }
+    
+}
+
+?>

@@ -1,0 +1,22 @@
+nav {
+    display: flex;
+     background: green;
+}
+
+nav div{
+    /*width: 100vw;*/
+    background: green;
+    /*padding: 0.3rem 0.5rem;*/
+}
+
+.btnNav {
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 15px;
+    background: #ccc;
+    color: 333;
+    font-size: 1.3rem;
+    text-decoration: none;
+    padding: 0.3rem ;
+    
+}

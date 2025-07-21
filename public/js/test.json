@@ -1,0 +1,14 @@
+{
+    "uzivatel": {
+        "blazenak": {"zavod":[2]},
+        "hronova": {"zavod":[1,2]}
+    },
+    "formular": {
+        "tabulka": {
+            "zam": {
+                "pole": "a",
+                "id": "b"
+            }
+        }
+    }
+}

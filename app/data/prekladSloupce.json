@@ -1,0 +1,12 @@
+{
+    "id_training":{
+        "cz": "id",
+        "de": "id",
+        "en": "id"
+        },
+    "os":{
+        "cz": "osobní číslo",
+        "de": "Personalnummer",
+        "en": "Personal number"
+        }
+}

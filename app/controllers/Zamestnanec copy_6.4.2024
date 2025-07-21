@@ -1,0 +1,78 @@
+<?php
+
+class Zamestnanec extends Controller{
+    private $controller, $fce, $updated, $ZamestnanecM; 
+    public function __construct(){
+        /*if(!jePrihlasen()){
+            redirect('uzivatel/prihlaseni');}
+        $this->UzivatelM = $this->model('UzivatelM');*/
+        $this->ZamestnanecM = $this->model('ZamestnanecM');
+                                                //print_r($this->ZamestnanecM);
+        }
+
+    public function index()
+    {
+        //$this->ZamestnanecM->();
+        $data = [];
+        $funkce = ['romatrixSettingSalImport', 'KompasOsobaImport', 'FssStaffImport', 'ekonomickeZamestnanciCiselnikUPD', 'tzPersonalstammImport', 'fss_mysql_zamestnanci', 'fssStaffInsUpd']; //'mysqlAuswertungZamestnanci_n'
+
+        foreach ($funkce as $hodnota) {
+                      
+            $pridat = $this->ZamestnanecM->$hodnota();
+            //var_dump($pridat);
+            $data[$hodnota . ' - ' . key($pridat)] = $pridat[key($pridat)];
+            //echo 'key '.$hodnota . ' - ' . key($pridat).' -value- '. $pridat[key($pridat)] .'<br>';
+            //var_dump($data);
+            //echo $hodnota.'<br>';
+            foreach ($data as $key => $value) {
+                if ($value === false) {
+                    $this->updated = false;
+                    //echo 'key '.$key.' -value- '. $hodnota .'<br>';
+                    $this->view('zamestnanec/importMsMy', $data);
+
+                    return;
+                }else {
+                    $this->updated = true; 
+                                       
+                    //echo 'UPDATED1 - '.$this->updated.'<br>';
+                    //$this->view('zamestnanec/index', $data);
+                }
+            }
+            
+            //echo $key.' |-| '.$hodnota.'<br>';
+        }
+
+         //echo 'UPDATED - '.$this->updated.'<br>';
+         if($this->updated===true){
+            //var_dump($data);
+            $data = [];
+            //sleep(5);
+            //echo 'UPDATED - '.$this->updated.'<br>';
+            $this->view('zamestnanec/index', $data);
+         }/*else{
+            echo 'UPDATED 1 - '.$this->updated.'<br>';
+        //$this->view('zamestnanec/importMsMy', $data);
+    }*/
+    $this->view('zamestnanec/index', $data);                
+    }
+            
+      
+    
+    
+
+    public function mysqlTest(){
+        
+        $this->ZamestnanecM->mysqlAuswertungZamestnanci_n();
+
+    }
+
+
+    public function ciselnikUPD(){
+        
+               
+        
+    }
+    
+}
+
+?>

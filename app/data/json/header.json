@@ -1,0 +1,21 @@
+{
+    "controller": {
+        "zamestnanecT": {
+            "fce": {
+                "zaucakPotvrditT": {
+                    "css": [
+                        "navbar",
+                        "radio",
+                        "tabulka"
+                        
+                    ],
+                    "js": [
+                        "zamestnanec",
+                        "ZaucakPotvrdit"
+                    ]
+                }
+            }
+        }
+    }
+        
+}
